@@ -30,3 +30,13 @@ install.packages(c("MASS", "Rdonlp2", "cluster", "ggplot2", "cowplot",
 # Bioconductor packages
 if (!require("BiocManager")) install.packages("BiocManager")
 BiocManager::install(c("clusterProfiler", "org.Hs.eg.db", "enrichplot"))
+
+## 🧬 Data Preparation
+Real Data
+Obtain raw files from CPTAC Data Portal:
+
+Intrahepatic cholangiocarcinoma: iCC_NCC_Proteome.tmt10.tsv
+
+Glioblastoma: CPTAC3_Glioblastoma_Proteome.tmt11.tsv
+
+Place files in Data/CPTAC/
