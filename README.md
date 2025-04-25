@@ -13,3 +13,20 @@
 │ ├── Figures/ # Publication-quality figures
 │ └── Results/ # Analysis result tables
 └── README.md # Project documentation
+
+## 🛠️ Environment Setup
+
+### System Requirements
+- R ≥ 4.2.0
+- Rtools (Windows users)
+- 8GB+ RAM (16GB recommended for full simulations)
+
+### Dependency Installation
+```r
+# CRAN packages
+install.packages(c("MASS", "Rdonlp2", "cluster", "ggplot2", "cowplot",
+                   "glmnet", "spls", "pROC", "doParallel", "pryr"))
+
+# Bioconductor packages
+if (!require("BiocManager")) install.packages("BiocManager")
+BiocManager::install(c("clusterProfiler", "org.Hs.eg.db", "enrichplot"))
