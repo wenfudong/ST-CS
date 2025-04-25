@@ -1,5 +1,6 @@
 # # Sparse Feature Selection Framework with Soft-Thresholded Compressed Sensing (ST-CS)
 ## 📂 Project Structure
+```text
 .
 ├── Data/ # Raw proteomics data (requires download)
 ├── Analysis/
@@ -46,6 +47,10 @@ Store in Data/
 # Sparse Feature Selection Framework with Clustering Visualization
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+        
+        
+        
+        
 ](https://opensource.org/licenses/MIT)
 
 ## 📂 Project Structure
