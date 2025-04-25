@@ -1,42 +1,44 @@
-# ST-CS
+# # Sparse Feature Selection Framework with Soft-Thresholded Compressed Sensing (ST-CS)
 ## 📂 Project Structure
 .
+├── Data/ # Raw proteomics data (requires download)
 ├── Analysis/
 │ ├── Distribution.R # Coefficient distribution visualization
-│ ├── Pathway_analysis.R # GO/KEGG enrichment analysis
-│ ├── PDC000356.R # Intrahepatic cholangiocarcinoma analysis
+│ ├── Pathway_analysis.R # Functional enrichment analysis
+│ ├── PDC000356.R # Cholangiocarcinoma analysis
 │ ├── PDC000446.R # Glioblastoma analysis
-│ ├── Runtime_memory.R # Computational resource evaluation
-│ ├── Simulation.R # Main simulation experiment
-│ └── Visualization of simulations.R # Visualization of simulation experiment results
-├── Outputs/ # Generated results
-│ ├── Figures/ # Publication-quality figures
+│ ├── Runtime_memory.R # Computational resource profiling
+│ └── Simulation.R # Main comparative simulation
+├── Outputs/
+│ ├── Figures/ # Publication-ready TIFF figures
 │ └── Results/ # Analysis result tables
-└── README.md # Project documentation
+└── README.md
+
 
 ## 🛠️ Environment Setup
 
 ### System Requirements
-- R ≥ 4.2.0
-- Rtools (Windows users)
-- 8GB+ RAM (16GB recommended for full simulations)
+- **R ≥ 4.2.0** with LAPACK/BLAS optimization
+- **Rtools** (Windows) / **Xcode** (macOS) for compiling Rdonlp2
+- 8GB RAM minimum (16GB recommended for full simulations)
 
 ### Dependency Installation
 ```r
-# CRAN packages
+# Install from CRAN
 install.packages(c("MASS", "Rdonlp2", "cluster", "ggplot2", "cowplot",
-                   "glmnet", "spls", "pROC", "doParallel", "pryr"))
+                   "glmnet", "spls", "pROC", "doParallel", "pryr",
+                   "readr", "dplyr", "tidyr", "stringr", "tibble",
+                   "matrixStats", "caret", "foreach"))
 
-# Bioconductor packages
+# Install Bioconductor packages
 if (!require("BiocManager")) install.packages("BiocManager")
 BiocManager::install(c("clusterProfiler", "org.Hs.eg.db", "enrichplot"))
 
-## 🧬 Data Preparation
-Real Data
-Obtain raw files from CPTAC Data Portal:
-
-Intrahepatic cholangiocarcinoma: iCC_NCC_Proteome.tmt10.tsv
-
-Glioblastoma: CPTAC3_Glioblastoma_Proteome.tmt11.tsv
-
-Place files in Data/CPTAC/
+🧬 Data Preparation
+Real Data (CPTAC)
+Download from CPTAC Data Portal:
+Cholangiocarcinoma: iCC_NCC_Proteome.tmt10.tsv;
+                    PDC_study_biospecimen_03212025_144732.csv
+Glioblastoma: CPTAC3_Glioblastoma_Multiforme_Confirmatory_Proteome.tmt11.tsv;
+              PDC_study_biospecimen_03232025_213615.csv
+Store in Data/
