@@ -33,6 +33,7 @@ install.packages(c("MASS", "Rdonlp2", "cluster", "ggplot2", "cowplot",
 # Install Bioconductor packages
 if (!require("BiocManager")) install.packages("BiocManager")
 BiocManager::install(c("clusterProfiler", "org.Hs.eg.db", "enrichplot"))
+```r
 
 ## 🧬 Data Preparation
 Real Data (CPTAC)
