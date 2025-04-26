@@ -39,91 +39,81 @@ BiocManager::install(c("clusterProfiler", "org.Hs.eg.db", "enrichplot"))
 ## 🧬 Data Preparation
 - Real Data (CPTAC)
   * Download from CPTAC Data Portal (https://proteomics.cancer.gov/programs/cptac):
-    + Intrahepatic cholangiocarcinoma: iCC_NCC_Proteome.tmt10.tsv;
-                                       PDC_study_biospecimen_03212025_144732.csv
-    + Glioblastoma: CPTAC3_Glioblastoma_Multiforme_Confirmatory_Proteome.tmt11.tsv;
-                    PDC_study_biospecimen_03232025_213615.csv
-- Store in Data/
+    + Intrahepatic cholangiocarcinoma (PDC000356):
+      + iCC_NCC_Proteome.tmt10.tsv;
+      + PDC_study_biospecimen_03212025_144732.csv
+    + Glioblastoma (PDC000446):
+      + CPTAC3_Glioblastoma_Multiforme_Confirmatory_Proteome.tmt11.tsv;
+      + PDC_study_biospecimen_03232025_213615.csv
+  * Store in Data/
 
-        
-        
-        
-
-
-Simulated Data
-r
-source("Analysis/Simulation.R")  # Generates synthetic datasets in Data/Simulated/
-▶️ Execution Workflow
-Standard Analysis
-bash
+## ▶️ Execution Workflow
+### Standard Analysis
+```r
 # Generate coefficient distribution plot
 Rscript Analysis/Distribution.R
-
+```
+```r
+# Large-scale simulation study (~10 hours on 16-core system)
+Rscript Analysis/Simulation.R
+```
+```r
+# Run real data analysis (requires CPTAC data)
+Rscript Analysis/PDC000356.R
+Rscript Analysis/PDC000446.R
+```
+```r
 # Perform pathway enrichment analysis
 Rscript Analysis/Pathway_analysis.R
-
-# Run cholangiocarcinoma analysis (requires CPTAC data)
-Rscript Analysis/PDC000356.R
-Advanced Mode
-bash
-# Full benchmark (16 CPU cores recommended)
+```
+```r
+# Benchmarking Runtime and memory usage
 Rscript Analysis/Runtime_memory.R
+```
 
-# Large-scale simulation study (~4 hours on 16-core system)
-Rscript Analysis/Simulation.R
-📊 Output Specifications
+## 📊 Output Specifications
 File Type	Location	Content Description
 TIFF Figures	Outputs/Figures/*.tiff	Publication-quality visualizations
 CSV Results	Outputs/Results/*.csv	Quantitative analysis metrics
-Runtime Logs	Outputs/Logs/*.log	Detailed execution records
-🔍 Reproducibility Protocol
-Quick Validation
-bash
+
+## 🔍 Reproducibility Protocol
+- Quick Validation
+```r
 # Minimal verification (no real data required)
 Rscript -e "source('Analysis/Distribution.R'); source('Analysis/Pathway_analysis.R')"
-Full Reproduction
-Place CPTAC data in Data/CPTAC/
+```
+- Full Reproduction (Place CPTAC data in Data/)
 
-Execute pipeline:
+ - Execute pipeline:
 
-bash
+```r
 for script in Analysis/*.R; do
   Rscript $script
 done
-❓ Frequently Asked Questions
-Q: Rdonlp2 fails to install on Windows
-A: Ensure Rtools is installed and added to PATH during installation
+```
 
-Q: KEGG analysis returns empty results
+## ❓ Frequently Asked Questions
+- Q: Rdonlp2 fails to install on Windows
+- A: Ensure Rtools is installed and added to PATH during installation
 
-r
-options(timeout=600)  # Increase download timeout
-BiocManager::install("KEGGREST", update=FALSE)  # Install KEGG API
-Q: Memory allocation errors in Simulation.R
-
-r
+- Q: Implement simulation experiments with more parameters in Simulation.R
+```r
 # Modify in Simulation.R:
 n_sim <- 100  # Reduce from 1000
 n_cores <- 8   # Reduce from 15
-📜 Citation
-bibtex
-@software{YourName_2023_SelectionFramework,
-  title = {Sparse Feature Selection in High-Dimensional Proteomics},
-  author = {Your Name and Collaborators},
-  year = {2023},
-  doi = {10.5281/zenodo.XXXXXXX},
+```
+
+## 📜 Citation
+```bibtex
+@software{wenfudong_2025_SelectionFramework,
+  title = {Sparse Feature Selection Framework in High-Dimensional Proteomics},
+  author = {Fudong Wen},
+  year = {2025},
   url = {https://github.com/yourusername/repo},
-  version = {2.1.0}
+  version = {1.0.0}
 }
-📄 License
-MIT Licensed | Copyright © 2023 [Your Institution]
+```
 
+## 📄 License
+MIT Licensed | Copyright © 2025 [Harbin Medical University]
 
-**Key Enhancements**:
-1. Added explicit path handling for new output structure
-2. Included memory management guidance for large simulations
-3. Added command-line execution examples
-4. Integrated troubleshooting for common KEGG issues
-5. Specified BLAS/LAPACK optimization requirements
-6. Added version numbering for citation
-7. Included parallel computing core recommendations
