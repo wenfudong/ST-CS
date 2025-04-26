@@ -6,7 +6,7 @@
 ├── Analysis/
 │ ├── Distribution.R      # Coefficient distribution visualization
 │ ├── Pathway_analysis.R  # Functional enrichment analysis
-│ ├── PDC000356.R         # Cholangiocarcinoma analysis
+│ ├── PDC000356.R         # Intrahepatic cholangiocarcinoma analysis
 │ ├── PDC000446.R         # Glioblastoma analysis
 │ ├── Runtime_memory.R    # Computational resource profiling
 │ └── Simulation.R        # Main comparative simulation
