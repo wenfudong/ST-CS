@@ -38,11 +38,11 @@ BiocManager::install(c("clusterProfiler", "org.Hs.eg.db", "enrichplot"))
 
 ## 🧬 Data Preparation
 - Real Data (CPTAC)
-* Download from CPTAC Data Portal (https://proteomics.cancer.gov/programs/cptac):
-+ Intrahepatic cholangiocarcinoma: iCC_NCC_Proteome.tmt10.tsv;
-                                   PDC_study_biospecimen_03212025_144732.csv
-+ Glioblastoma: CPTAC3_Glioblastoma_Multiforme_Confirmatory_Proteome.tmt11.tsv;
-                PDC_study_biospecimen_03232025_213615.csv
+  * Download from CPTAC Data Portal (https://proteomics.cancer.gov/programs/cptac):
+    + Intrahepatic cholangiocarcinoma: iCC_NCC_Proteome.tmt10.tsv;
+                                       PDC_study_biospecimen_03212025_144732.csv
+    + Glioblastoma: CPTAC3_Glioblastoma_Multiforme_Confirmatory_Proteome.tmt11.tsv;
+                    PDC_study_biospecimen_03232025_213615.csv
 - Store in Data/
 
         
