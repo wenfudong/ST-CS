@@ -72,44 +72,34 @@ Rscript Analysis/Runtime_memory.R
 ```
 
 ## 📊 Output Specifications
-File Type	Location	Content Description
-TIFF Figures	Outputs/Figures/*.tiff	Publication-quality visualizations
-CSV Results	Outputs/Results/*.csv	Quantitative analysis metrics
+| File Type	| Location	| Content | Description |
+| --- | --- | --- | --- |
+| TIFF Figures | Outputs/Figures/*.tiff |	Publication-quality | visualizations |
+| CSV Results	| Outputs/Results/*.csv	| Quantitative analysis | metrics |
 
-## 🔍 Reproducibility Protocol
-- Quick Validation
-```r
-# Minimal verification (no real data required)
-Rscript -e "source('Analysis/Distribution.R'); source('Analysis/Pathway_analysis.R')"
-```
-- Full Reproduction (Place CPTAC data in Data/)
-
- - Execute pipeline:
-
-```r
-for script in Analysis/*.R; do
-  Rscript $script
-done
-```
 
 ## ❓ Frequently Asked Questions
 - Q: Rdonlp2 fails to install on Windows
-- A: Ensure Rtools is installed and added to PATH during installation
+ - A: Ensure Rtools is installed and added to PATH during installation
 
 - Q: Implement simulation experiments with more parameters in Simulation.R
 ```r
 # Modify in Simulation.R:
-n_sim <- 100  # Reduce from 1000
-n_cores <- 8   # Reduce from 15
+p <- 500             # Total number of features
+corr <- 0.8          # Base correlation coefficient
+SNR <- 10            # Signal-to-noise ratio
+p_real <- 5          # Number of true signal features
+n_sim <- 1000        # Number of simulations per configuration
+block_size <- 50     # Size of correlation blocks
 ```
 
 ## 📜 Citation
 ```bibtex
-@software{wenfudong_2025_SelectionFramework,
-  title = {Sparse Feature Selection Framework in High-Dimensional Proteomics},
+@software{wenfudong_2025_ST-CS,
+  title = {Benchmarking Soft-Thresholded Compressed Sensing (ST-CS) Against Traditional Methods},
   author = {Fudong Wen},
   year = {2025},
-  url = {https://github.com/yourusername/repo},
+  url = {[https://github.com/wenfudong/ST-CS.git]},
   version = {1.0.0}
 }
 ```
