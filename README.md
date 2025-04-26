@@ -2,17 +2,17 @@
 ## 📂 Project Structure
 ```text
 .
-├── Data/ # Raw proteomics data (requires download)
+├── Data/                 # Raw proteomics data (requires download)
 ├── Analysis/
-│ ├── Distribution.R # Coefficient distribution visualization
-│ ├── Pathway_analysis.R # Functional enrichment analysis
-│ ├── PDC000356.R # Cholangiocarcinoma analysis
-│ ├── PDC000446.R # Glioblastoma analysis
-│ ├── Runtime_memory.R # Computational resource profiling
-│ └── Simulation.R # Main comparative simulation
+│ ├── Distribution.R      # Coefficient distribution visualization
+│ ├── Pathway_analysis.R  # Functional enrichment analysis
+│ ├── PDC000356.R         # Cholangiocarcinoma analysis
+│ ├── PDC000446.R         # Glioblastoma analysis
+│ ├── Runtime_memory.R    # Computational resource profiling
+│ └── Simulation.R        # Main comparative simulation
 ├── Outputs/
-│ ├── Figures/ # Publication-ready TIFF figures
-│ └── Results/ # Analysis result tables
+│ ├── Figures/            # Publication-ready TIFF figures
+│ └── Results/            # Analysis result tables
 └── README.md
 ```
 
