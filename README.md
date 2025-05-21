@@ -5,9 +5,10 @@
 ├── Data/                 # Raw proteomics data (requires download)
 ├── Analysis/
 │ ├── Distribution.R      # Coefficient distribution visualization
-│ ├── Pathway_analysis.R  # Functional enrichment analysis
 │ ├── PDC000356.R         # Intrahepatic cholangiocarcinoma analysis
+│ ├── PDC000362.R         # Ovarian Serous Cystadenocarcinoma analysis
 │ ├── PDC000446.R         # Glioblastoma analysis
+│ ├── Pathway_analysis.R  # Functional enrichment analysis
 │ ├── Runtime_memory.R    # Computational resource profiling
 │ └── Simulation.R        # Main comparative simulation
 ├── Outputs/
@@ -42,6 +43,9 @@ BiocManager::install(c("clusterProfiler", "org.Hs.eg.db", "enrichplot"))
     + Intrahepatic cholangiocarcinoma (PDC000356):
       + iCC_NCC_Proteome.tmt10.tsv;
       + PDC_study_biospecimen_03212025_144732.csv
+    + Ovarian Serous Cystadenocarcinoma (PDC000362):
+      + CPTAC3_PTRC_FHCRC_HGSOC_Frozen_Validation_Proteome.tmt11.tsv;
+      + PDC_study_biospecimen_05202025_143559.csv
     + Glioblastoma (PDC000446):
       + CPTAC3_Glioblastoma_Multiforme_Confirmatory_Proteome.tmt11.tsv;
       + PDC_study_biospecimen_03232025_213615.csv
@@ -60,6 +64,7 @@ Rscript Analysis/Simulation.R
 ```r
 # Run real data analysis (requires CPTAC data)
 Rscript Analysis/PDC000356.R
+Rscript Analysis/PDC000362.R
 Rscript Analysis/PDC000446.R
 ```
 ```r
@@ -100,7 +105,7 @@ block_size <- 50     # Size of correlation blocks
   author = {Fudong Wen},
   year = {2025},
   url = {[https://github.com/wenfudong/ST-CS.git]},
-  version = {1.0.0}
+  version = {1.0.1}
 }
 ```
 
