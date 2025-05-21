@@ -1,9 +1,9 @@
 # =========================================================================
 # Title: Integrated GO and KEGG Pathway Analysis for ST-CS Selected Proteins
 # Description: 
-#   This script performs GO and KEGG enrichment analyses on all proteins
-#   selected by ST-CS in intrahepatic cholangiocarcinoma (CPTAC PDC000356) 
-#   and glioblastoma (CPTAC PDC000446). 
+#   This script performs GO and KEGG enrichment analyses on proteins
+#   selected by ST-CS in intrahepatic cholangiocarcinoma (PDC000356),
+#   glioblastoma (PDC000446), and ovarian serous cystadenocarcinoma (PDC000362).
 #   Results are visualized in combined plots.
 # =========================================================================
 
@@ -20,7 +20,7 @@ library(cowplot)            # Combining multiple plots
 # Step 2: Input Protein Lists (All Proteins, N≥1)
 # ----------------------------
 
-# Intrahepatic Cholangiocarcinoma (PDC000356): All selected proteins
+# Intrahepatic Cholangiocarcinoma (PDC000356)
 intrahepatic_cholangiocarcinoma <- c(
   "AADAT", "ACSM2A", "ACSM2B", "ECI2", "GAS2", "GLS2", "MMUT", "NDRG2",
   "RMDN2", "SCP2", "SULT1A1", "SULT1A2", "SULT2A1", "TKFC", "TTC36",
@@ -33,7 +33,7 @@ intrahepatic_cholangiocarcinoma <- c(
   "PGRMC1", "PHYH", "PLIN5", "PPP1R1A", "PVALB", "SPINT1", "VSNL1"
 )
 
-# Glioblastoma (PDC000446): All selected proteins
+# Glioblastoma (PDC000446)
 glioblastoma <- c(
   "ADAP1", "ATP5F1E", "BIN1", "GOT2", "TINAGL1", "ATP5IF1", "DLG2", "FTL",
   "NDUFA2", "ARRB1", "AUH", "EFHD1", "MAP6D1", "NAPEPLD", "PDE1A", "ADCY5",
@@ -47,10 +47,21 @@ glioblastoma <- c(
   "PRODH", "RASGRF2", "RGS14", "SH3GLB2", "SMC2", "TGIF1", "TMEM167A", "TPPP"
 )
 
+# Ovarian Serous Cystadenocarcinoma (PDC000362) 
+ovarian_serous <- c(
+  "GPD1", "LIMD2", "LRRC15", "NNMT", "PLIN1", "TMEM119", "ACSL1", "CD36", 
+  "FABP4", "SVEP1", "COPZ2", "CORO1A", "HCLS1", "IL16", "RGCC", "RTN1", 
+  "APBB1IP", "CILP", "COL11A1", "CTSH", "EVL", "FBLN2", "FKBP11", "FN1", 
+  "LCP1", "LPXN", "MGST1", "MXRA5", "POSTN", "PYCARD", "RBP1", "S100A11",
+  "ARHGAP30", "ARHGDIB", "CAPG", "CNN2", "COL5A2", "COLEC11", "COMP", 
+  "CPA3", "CTHRC1", "FAP", "FHL3", "FKBP14", "GIMAP2", "ICAM1", "ITGBL1", 
+  "LCP2", "LSP1", "MMP11", "MT1H", "PPL", "RAC2", "SASH3", "TCEAL4", 
+  "TPSAB1", "TSPAN8", "VCAN"
+)
+
 # ----------------------------
 # Step 3: Convert Gene Symbols to Entrez ID (with error handling)
 # ----------------------------
-
 convert_to_entrez <- function(gene_symbols) {
   result <- tryCatch({
     bitr(gene_symbols, fromType = "SYMBOL", toType = "ENTREZID", OrgDb = "org.Hs.eg.db")
@@ -61,14 +72,13 @@ convert_to_entrez <- function(gene_symbols) {
   return(result)
 }
 
-# Convert protein lists
 chol_entrez <- convert_to_entrez(intrahepatic_cholangiocarcinoma)
 glio_entrez <- convert_to_entrez(glioblastoma)
+ovarian_entrez <- convert_to_entrez(ovarian_serous)  
 
 # ----------------------------
 # Step 4: Perform Enrichment Analysis (with error handling)
 # ----------------------------
-
 perform_enrichment <- function(entrez_ids, analysis_type = "GO", title_suffix) {
   if (is.null(entrez_ids)) {
     message("Skipping analysis: Empty Entrez IDs.")
@@ -82,7 +92,7 @@ perform_enrichment <- function(entrez_ids, analysis_type = "GO", title_suffix) {
       keyType = "ENTREZID",
       ont = "BP",
       pAdjustMethod = "BH",
-      pvalueCutoff = 0.1,  # Relaxed threshold
+      pvalueCutoff = 0.1,
       qvalueCutoff = 0.2,
       readable = TRUE
     )
@@ -103,9 +113,8 @@ perform_enrichment <- function(entrez_ids, analysis_type = "GO", title_suffix) {
 }
 
 # ----------------------------
-# Step 5: Run Analyses for Both Datasets
+# Step 5: Run Analyses for All Datasets
 # ----------------------------
-
 # Intrahepatic Cholangiocarcinoma
 go_chol <- perform_enrichment(chol_entrez, "GO", "Intrahepatic Cholangiocarcinoma")
 kegg_chol <- perform_enrichment(chol_entrez, "KEGG", "Intrahepatic Cholangiocarcinoma")
@@ -114,57 +123,57 @@ kegg_chol <- perform_enrichment(chol_entrez, "KEGG", "Intrahepatic Cholangiocarc
 go_glio <- perform_enrichment(glio_entrez, "GO", "Glioblastoma")
 kegg_glio <- perform_enrichment(glio_entrez, "KEGG", "Glioblastoma")
 
+# Ovarian Serous Cystadenocarcinoma 
+go_ovarian <- perform_enrichment(ovarian_entrez, "GO", "Ovarian Serous Cystadenocarcinoma")
+kegg_ovarian <- perform_enrichment(ovarian_entrez, "KEGG", "Ovarian Serous Cystadenocarcinoma")
+
 # ----------------------------
 # Step 6: Visualize Combined Results
 # ----------------------------
-
-# Custom plotting function
 plot_enrichment <- function(enrich_result, title, plot_type = "dot") {
-  if (is.null(enrich_result)) {
-    return(NULL)
-  }
+  if (is.null(enrich_result)) return(NULL)
   
   if (plot_type == "dot") {
     p <- dotplot(enrich_result, showCategory = 10, font.size = 10) + 
       ggtitle(title) +
-      theme(
-        plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
-        axis.text.x = element_text(angle = 45, hjust = 1)
-      )
+      theme(plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
+            axis.text.x = element_text(angle = 45, hjust = 1))
   } else if (plot_type == "bar") {
     p <- barplot(enrich_result, showCategory = 10, font.size = 10) + 
       ggtitle(title) +
-      theme(
-        plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
-        axis.text.x = element_text(angle = 45, hjust = 1)
-      )
+      theme(plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
+            axis.text.x = element_text(angle = 45, hjust = 1))
   }
   return(p)
 }
 
-# Generate plots
+# Generate plots 
 plot_list <- list(
   plot_enrichment(go_chol, "GO: Intrahepatic Cholangiocarcinoma", "dot"),
   plot_enrichment(kegg_chol, "KEGG: Intrahepatic Cholangiocarcinoma", "bar"),
   plot_enrichment(go_glio, "GO: Glioblastoma", "dot"),
-  plot_enrichment(kegg_glio, "KEGG: Glioblastoma", "bar")
+  plot_enrichment(kegg_glio, "KEGG: Glioblastoma", "bar"),
+  plot_enrichment(go_ovarian, "GO: Ovarian Serous Cystadenocarcinoma", "dot"),          
+  plot_enrichment(kegg_ovarian, "KEGG: Ovarian Serous Cystadenocarcinoma", "bar")       
 )
 
-# Remove NULL elements (failed analyses)
 plot_list <- plot_list[!sapply(plot_list, is.null)]
 
 # Combine plots using cowplot
-combined_plot <- plot_grid(plotlist = plot_list, ncol = 2, labels = "AUTO")
+combined_plot <- plot_grid(plotlist = plot_list, 
+                           ncol = 2, nrow = 3, 
+                           labels = "AUTO")
 
 # Save combined plot
-ggsave("Outputs/Figures/Combined_Enrichment.tiff", combined_plot, 
-       width = 14, height = 10, dpi = 300, compression = "lzw")
+ggsave("Outputs/Figures/Combined_Enrichment.tiff", combined_plot,
+       width = 14, height = 18, dpi = 300, compression = "lzw")
 
 # ----------------------------
-# Step 7: Save Results to CSV
+# Step 7: Save Results to CSV 
 # ----------------------------
-
 write.csv(go_chol@result, "Outputs/Results/GO_Cholangiocarcinoma.csv")
 write.csv(go_glio@result, "Outputs/Results/GO_Glioblastoma.csv")
+write.csv(go_ovarian@result, "Outputs/Results/GO_Ovarian.csv")        
 write.csv(kegg_chol@result, "Outputs/Results/KEGG_Cholangiocarcinoma.csv")
 write.csv(kegg_glio@result, "Outputs/Results/KEGG_Glioblastoma.csv")
+write.csv(kegg_ovarian@result, "Outputs/Results/KEGG_Ovarian.csv")    
