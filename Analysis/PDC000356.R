@@ -178,8 +178,8 @@ for (fold in 1:n_folds) {
 # Create summary data frame
 result_summary <- data.frame(
   Method = c("STCS", "HTCS", "LASSO", "SPLS-DA"),
-  Mean_AUC = sapply(results, function(x) round(mean(x$auc), 3)),
-  SD_AUC = sapply(results, function(x) round(sd(x$auc), 3)),
+  Mean_AUC = sapply(results, function(x) round(mean(x$auc), 4)),
+  SD_AUC = sapply(results, function(x) round(sd(x$auc), 4)),
   Mean_Features = sapply(results, function(x) round(mean(x$n_features))),
   SD_Features = sapply(results, function(x) round(sd(x$n_features)))
 )
